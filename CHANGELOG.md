@@ -1,3 +1,9 @@
+## 0.1.1 (2025-10-22)
+
+### Bug Fixes
+
+-  adding formatting ([8804b](https://github.com/Forsakringskassan/template-asyncapi/commit/8804b95fe874a1d) Tomas Bjerre)  
+
 ## 0.1.0 (2025-10-22)
 
 ### Features
