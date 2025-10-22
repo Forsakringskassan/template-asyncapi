@@ -1,4 +1,4 @@
-# Asyn API Template
+# Async API Template
 
 See [gradle-conventions](https://github.com/tomasbjerre/gradle-conventions).
 
