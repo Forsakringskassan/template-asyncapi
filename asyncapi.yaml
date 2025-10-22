@@ -1,0 +1,88 @@
+asyncapi: 3.0.0
+info:
+  title: Exempel API
+  version: 1.0.0
+  description: Exempel
+
+channels:
+  exempel.rtf.requests:
+    address: exempel.rtf.requests
+    messages:
+      ExempelRtfRequestMessage:
+        $ref: '#/components/messages/ExempelRtfRequestMessage'
+        
+  exempel.rtf.responses:
+    address: exempel.rtf.responses
+    messages:
+      ExempelRtfResponseMessage:
+        $ref: '#/components/messages/ExempelRtfResponseMessage'
+
+operations:
+  onExempelRtfRequest:
+    action: receive
+    summary: Tillämpar regeln och kontrollerar om personen har rätt till Vård av husdjur.
+    channel:
+      $ref: '#/channels/exempel.rtf.requests'
+    reply:
+      address:
+        description: Resultatet skickas tillbaka till källan.
+        location: "$message.header#/replyTo"
+      channel:
+        $ref: '#/channels/exempel.rtf.responses'
+
+components:
+  messages:
+    ExempelRtfRequestMessage:
+      headers:
+        $ref: '#/components/schemas/ExempelRtfRequestHeaders'
+      payload:
+        $ref: '#/components/schemas/ExempelRtfRequestPayload'
+
+    ExempelRtfResponseMessage:
+      headers:
+        $ref: '#/components/schemas/ExempelRtfResponseHeaders'
+      payload:
+        $ref: '#/components/schemas/ExempelRtfResponsePayload'
+        
+  schemas:
+    ExempelRtfRequestHeaders:
+      type: object
+      properties:
+        replyTo:
+          type: string
+          description: Topic där response ska skickas
+        correlationId:
+          type: string
+          description: Unikt id som kopplar ihop request & response
+    ExempelRtfRequestPayload:
+      type: object
+      properties:
+        processId:
+          type: string
+          description: Unikt id som identifierar processinstansen
+        personNummer:
+          type: string
+          description: Svenskt personnummer 12 siffror
+          pattern: '^\d{10}-\d{4}$'
+          example: 19990101-0123
+    ExempelRtfResponseHeaders:
+      type: object
+      properties:
+        correlationId:
+          type: string
+          description: Unikt id som kopplar ihop request & response
+    ExempelRtfResponsePayload:
+      type: object
+      properties:
+        processId:
+          type: string
+          description: Unikt id som identifierar processinstansen
+        personNummer:
+          type: string
+          description: Svenskt personnummer 12 siffror
+          pattern: '^\d{10}-\d{4}$'
+          example: 19990101-0123
+        rattTillForsakring:
+          type: boolean
+          description: Utfall av regel, om personen har rätt till försäkring
+          example: true
