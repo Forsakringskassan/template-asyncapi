@@ -1,5 +1,5 @@
 plugins {
-	id "se.fk.gradle.bundle-asyncapi" version "1.17.3"
+	id "se.fk.gradle.bundle-asyncapi" version "1.18.1"
 }
 
 javaExtension {
